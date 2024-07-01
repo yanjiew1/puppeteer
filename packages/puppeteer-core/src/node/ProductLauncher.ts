@@ -351,6 +351,9 @@ export abstract class ProductLauncher {
     const BiDi = await import(/* webpackIgnore: true */ '../bidi/bidi.js');
     const bidiConnection = await BiDi.connectBidiOverCdp(connection, {
       acceptInsecureCerts: opts.ignoreHTTPSErrors ?? false,
+      unhandledPromptBehavior: {
+        default: BiDi.Session.UserPromptHandlerType.Ignore
+      }
     });
     return await BiDi.BidiBrowser.create({
       connection: bidiConnection,
